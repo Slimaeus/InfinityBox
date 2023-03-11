@@ -3,15 +3,15 @@
     public enum EffectTypes
     {
         None,
-        Heal,
-        DamageOverTime,
-        DefenseBuff,
-        AttackBuff,
-        Debuff,
-        Stun,
         PhysicalDamage,
         MagicalDamage,
+        Heal,
+        Buff,
+        Debuff,
+        Stun,
+        Burn,
         Poison,
-        Bleeding
+        Bleeding,
+        Silent
     }
 }
