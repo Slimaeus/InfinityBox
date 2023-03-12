@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities;
 
-public class CharacterType : BaseEntity
+public class CharacterType : BaseNameEntity
 {
 
 }

@@ -10,6 +10,7 @@ namespace InfinityBox.Infrastructure.SeedData
             BaseExperience = 10,
             Name = "Sword man",
             Description = "I am a swordman",
+            ImageUrl = "https://www.shutterstock.com/image-vector/medieval-knight-wearing-armor-holds-600w-2241229299.jpg",
             Type = CharacterTypes.Human,
             CharacterStats = new List<CharacterStat>
             {

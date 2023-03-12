@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities;
 
-public class UserCharacter : BaseEntity<Guid>
+public class UserCharacter : BaseGuidEntity
 {
     public Guid UserId { get; set; }
     public int Level { get; set; }

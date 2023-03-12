@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities;
 
-public class UserPocket : BaseEntity<Guid>
+public class UserPocket : BaseGuidEntity
 {
     public Guid UserId { get; set; }
     public int Coins { get; set; }

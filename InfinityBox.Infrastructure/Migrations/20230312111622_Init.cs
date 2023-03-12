@@ -26,13 +26,28 @@ namespace InfinityBox.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Effects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    TargetType = table.Column<int>(type: "INTEGER", nullable: false),
+                    Duration = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Effects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Inventories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,28 +63,11 @@ namespace InfinityBox.Infrastructure.Migrations
                     IsTarget = table.Column<bool>(type: "INTEGER", nullable: false),
                     StatType = table.Column<int>(type: "INTEGER", nullable: false),
                     CalculateType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Rate = table.Column<double>(type: "REAL", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Rate = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StatModifiers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StatRates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Rate = table.Column<float>(type: "REAL", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StatRates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,9 +76,7 @@ namespace InfinityBox.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Coins = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Coins = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,9 +89,7 @@ namespace InfinityBox.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Coins = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Coins = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,6 +104,7 @@ namespace InfinityBox.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     TypeId = table.Column<int>(type: "INTEGER", nullable: true),
                     BaseExperience = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -121,6 +116,31 @@ namespace InfinityBox.Infrastructure.Migrations
                         column: x => x.TypeId,
                         principalTable: "CharacterTypes",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EffectStatModifiers",
+                columns: table => new
+                {
+                    EffectId = table.Column<int>(type: "INTEGER", nullable: false),
+                    StatModifierId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EffectStatModifiers", x => new { x.EffectId, x.StatModifierId });
+                    table.ForeignKey(
+                        name: "FK_EffectStatModifiers_Effects_EffectId",
+                        column: x => x.EffectId,
+                        principalTable: "Effects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EffectStatModifiers_StatModifiers_StatModifierId",
+                        column: x => x.StatModifierId,
+                        principalTable: "StatModifiers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -230,9 +250,7 @@ namespace InfinityBox.Infrastructure.Migrations
                     Stars = table.Column<int>(type: "INTEGER", nullable: false),
                     Experience = table.Column<int>(type: "INTEGER", nullable: false),
                     CharacterId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EvolutionId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    EvolutionId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -251,32 +269,51 @@ namespace InfinityBox.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Effects",
+                name: "EffectPassive",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    TargetType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Duration = table.Column<int>(type: "INTEGER", nullable: false),
-                    PassiveId = table.Column<int>(type: "INTEGER", nullable: true),
-                    SkillId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    EffectsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PassivesId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Effects", x => x.Id);
+                    table.PrimaryKey("PK_EffectPassive", x => new { x.EffectsId, x.PassivesId });
                     table.ForeignKey(
-                        name: "FK_Effects_Passives_PassiveId",
-                        column: x => x.PassiveId,
+                        name: "FK_EffectPassive_Effects_EffectsId",
+                        column: x => x.EffectsId,
+                        principalTable: "Effects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EffectPassive_Passives_PassivesId",
+                        column: x => x.PassivesId,
                         principalTable: "Passives",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EffectSkill",
+                columns: table => new
+                {
+                    EffectsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SkillsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EffectSkill", x => new { x.EffectsId, x.SkillsId });
                     table.ForeignKey(
-                        name: "FK_Effects_Skills_SkillId",
-                        column: x => x.SkillId,
+                        name: "FK_EffectSkill_Effects_EffectsId",
+                        column: x => x.EffectsId,
+                        principalTable: "Effects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EffectSkill_Skills_SkillsId",
+                        column: x => x.SkillsId,
                         principalTable: "Skills",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -298,31 +335,6 @@ namespace InfinityBox.Infrastructure.Migrations
                         column: x => x.UserCharacterId,
                         principalTable: "UserCharacters",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EffectStatModifiers",
-                columns: table => new
-                {
-                    EffectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StatModifierId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EffectStatModifiers", x => new { x.EffectId, x.StatModifierId });
-                    table.ForeignKey(
-                        name: "FK_EffectStatModifiers_Effects_EffectId",
-                        column: x => x.EffectId,
-                        principalTable: "Effects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EffectStatModifiers_StatModifiers_StatModifierId",
-                        column: x => x.StatModifierId,
-                        principalTable: "StatModifiers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -361,14 +373,14 @@ namespace InfinityBox.Infrastructure.Migrations
                 column: "StatId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Effects_PassiveId",
-                table: "Effects",
-                column: "PassiveId");
+                name: "IX_EffectPassive_PassivesId",
+                table: "EffectPassive",
+                column: "PassivesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Effects_SkillId",
-                table: "Effects",
-                column: "SkillId");
+                name: "IX_EffectSkill_SkillsId",
+                table: "EffectSkill",
+                column: "SkillsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EffectStatModifiers_StatModifierId",
@@ -428,13 +440,16 @@ namespace InfinityBox.Infrastructure.Migrations
                 name: "CharacterStats");
 
             migrationBuilder.DropTable(
+                name: "EffectPassive");
+
+            migrationBuilder.DropTable(
+                name: "EffectSkill");
+
+            migrationBuilder.DropTable(
                 name: "EffectStatModifiers");
 
             migrationBuilder.DropTable(
                 name: "Items");
-
-            migrationBuilder.DropTable(
-                name: "StatRates");
 
             migrationBuilder.DropTable(
                 name: "UserBanks");
@@ -444,6 +459,12 @@ namespace InfinityBox.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stats");
+
+            migrationBuilder.DropTable(
+                name: "Passives");
+
+            migrationBuilder.DropTable(
+                name: "Skills");
 
             migrationBuilder.DropTable(
                 name: "Effects");
@@ -456,12 +477,6 @@ namespace InfinityBox.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserCharacters");
-
-            migrationBuilder.DropTable(
-                name: "Passives");
-
-            migrationBuilder.DropTable(
-                name: "Skills");
 
             migrationBuilder.DropTable(
                 name: "Evolutions");

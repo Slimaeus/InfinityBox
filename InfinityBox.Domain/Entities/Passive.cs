@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities
 {
-    public class Passive : BaseEntity
+    public class Passive : BaseNameEntity
     {
         public ICollection<Effect> Effects { get; set; }
     }

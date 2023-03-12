@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfinityBox.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230312092447_Init")]
+    [Migration("20230312111622_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -19,6 +19,36 @@ namespace InfinityBox.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
+
+            modelBuilder.Entity("EffectPassive", b =>
+                {
+                    b.Property<int>("EffectsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PassivesId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EffectsId", "PassivesId");
+
+                    b.HasIndex("PassivesId");
+
+                    b.ToTable("EffectPassive");
+                });
+
+            modelBuilder.Entity("EffectSkill", b =>
+                {
+                    b.Property<int>("EffectsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SkillsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EffectsId", "SkillsId");
+
+                    b.HasIndex("SkillsId");
+
+                    b.ToTable("EffectSkill");
+                });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.Character", b =>
                 {
@@ -30,6 +60,9 @@ namespace InfinityBox.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -95,12 +128,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PassiveId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("SkillId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("TargetType")
                         .HasColumnType("INTEGER");
 
@@ -108,10 +135,6 @@ namespace InfinityBox.Infrastructure.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PassiveId");
-
-                    b.HasIndex("SkillId");
 
                     b.ToTable("Effects");
                 });
@@ -168,12 +191,6 @@ namespace InfinityBox.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
@@ -301,14 +318,8 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<int>("CalculateType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
                     b.Property<bool>("IsTarget")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
 
                     b.Property<double>("Rate")
                         .HasColumnType("REAL");
@@ -321,26 +332,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.ToTable("StatModifiers");
                 });
 
-            modelBuilder.Entity("InfinityBox.Domain.Entities.StatRate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<float>("Rate")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatRates");
-                });
-
             modelBuilder.Entity("InfinityBox.Domain.Entities.UserBank", b =>
                 {
                     b.Property<Guid>("Id")
@@ -349,12 +340,6 @@ namespace InfinityBox.Infrastructure.Migrations
 
                     b.Property<int>("Coins")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
@@ -373,9 +358,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<int>("CharacterId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("EvolutionId")
                         .HasColumnType("INTEGER");
 
@@ -384,9 +366,6 @@ namespace InfinityBox.Infrastructure.Migrations
 
                     b.Property<int>("Level")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("Stars")
                         .HasColumnType("INTEGER");
@@ -412,18 +391,42 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<int>("Coins")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("UserPockets");
+                });
+
+            modelBuilder.Entity("EffectPassive", b =>
+                {
+                    b.HasOne("InfinityBox.Domain.Entities.Effect", null)
+                        .WithMany()
+                        .HasForeignKey("EffectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InfinityBox.Domain.Entities.Passive", null)
+                        .WithMany()
+                        .HasForeignKey("PassivesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EffectSkill", b =>
+                {
+                    b.HasOne("InfinityBox.Domain.Entities.Effect", null)
+                        .WithMany()
+                        .HasForeignKey("EffectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InfinityBox.Domain.Entities.Skill", null)
+                        .WithMany()
+                        .HasForeignKey("SkillsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.Character", b =>
@@ -452,17 +455,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Navigation("Character");
 
                     b.Navigation("Stat");
-                });
-
-            modelBuilder.Entity("InfinityBox.Domain.Entities.Effect", b =>
-                {
-                    b.HasOne("InfinityBox.Domain.Entities.Passive", null)
-                        .WithMany("Effects")
-                        .HasForeignKey("PassiveId");
-
-                    b.HasOne("InfinityBox.Domain.Entities.Skill", null)
-                        .WithMany("Effects")
-                        .HasForeignKey("SkillId");
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.EffectStatModifier", b =>
@@ -532,7 +524,7 @@ namespace InfinityBox.Infrastructure.Migrations
             modelBuilder.Entity("InfinityBox.Domain.Entities.UserCharacter", b =>
                 {
                     b.HasOne("InfinityBox.Domain.Entities.Character", "Character")
-                        .WithMany()
+                        .WithMany("UserCharacters")
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -555,6 +547,8 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Navigation("Passives");
 
                     b.Navigation("Skills");
+
+                    b.Navigation("UserCharacters");
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.Effect", b =>
@@ -570,16 +564,6 @@ namespace InfinityBox.Infrastructure.Migrations
             modelBuilder.Entity("InfinityBox.Domain.Entities.Inventory", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("InfinityBox.Domain.Entities.Passive", b =>
-                {
-                    b.Navigation("Effects");
-                });
-
-            modelBuilder.Entity("InfinityBox.Domain.Entities.Skill", b =>
-                {
-                    b.Navigation("Effects");
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.Stat", b =>

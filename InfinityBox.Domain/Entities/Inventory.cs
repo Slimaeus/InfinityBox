@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities;
 
-public class Inventory : BaseEntity<Guid>
+public class Inventory : BaseGuidEntity
 {
     public Guid UserId { get; set; }
     public ICollection<Item> Items { get; set; }

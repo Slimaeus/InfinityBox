@@ -2,7 +2,7 @@
 
 namespace InfinityBox.Domain.Entities
 {
-    public class Evolution : BaseEntity
+    public class Evolution : BaseNameEntity
     {
         public int LevelRequired { get; set; }
         public CharacterType CharacterType { get; set; }

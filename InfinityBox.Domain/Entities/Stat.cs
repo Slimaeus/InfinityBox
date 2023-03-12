@@ -3,7 +3,7 @@ using InfinityBox.Domain.Enums;
 
 namespace InfinityBox.Domain.Entities;
 
-public class Stat : BaseEntity
+public class Stat : BaseNameEntity
 {
     public CharacterStatType Type { get; set; }
 

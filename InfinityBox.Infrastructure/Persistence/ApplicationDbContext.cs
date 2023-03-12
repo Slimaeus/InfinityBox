@@ -20,7 +20,7 @@ namespace InfinityBox.Infrastructure.Persistence
         public DbSet<Item> Items { get; set; }
         public DbSet<Passive> Passives { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<StatRate> StatRates { get; set; }
+        //public DbSet<StatRate> StatRates { get; set; }
         public DbSet<Stat> Stats { get; set; }
         public DbSet<UserBank> UserBanks { get; set; }
         public DbSet<UserCharacter> UserCharacters { get; set; }
