@@ -5,9 +5,8 @@ namespace InfinityBox.Domain.Entities;
 
 public class Effect : BaseEntity
 {
-    public EffectTypes Type { get; set; }
-    public StatType SourceType { get; set; }
-    public StatType DestinationType { get; set; }
-    public double Value { get; set; }
+    public EffectType Type { get; set; }
+    public TargetType TargetType { get; set; }
     public int Duration { get; set; }
+    public ICollection<EffectStatModifier> EffectStatModifiers { get; set; }
 }

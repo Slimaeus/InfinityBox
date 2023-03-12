@@ -1,6 +1,8 @@
-﻿namespace InfinityBox.Domain.Entities;
+﻿using InfinityBox.Domain.Common;
 
-public class StatRate
+namespace InfinityBox.Domain.Entities;
+
+public class StatRate : BaseEntity
 {
     public float Rate { get; set; }
 }

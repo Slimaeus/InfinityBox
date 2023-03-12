@@ -30,17 +30,26 @@ namespace InfinityBox.API.Extensions
                     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
                 }
             });
+
+            builder.Services.AddScoped<ApplicationDbContextInitializer>();
             #endregion
 
             return builder.Build();
         }
-        public static WebApplication ConfigurePipeline(this WebApplication app)
+        public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
         {
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                using (var scope = app.Services.CreateScope())
+                {
+                    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+                    await initialiser.InitialiseAsync();
+                    await initialiser.SeedAsync();
+                }
             }
 
             app.UseHttpsRedirection();

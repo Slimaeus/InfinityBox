@@ -9,7 +9,7 @@ public class UserCharacter : BaseEntity<Guid>
     public int Stars { get; set; }
     public int Experience { get; set; }
     public List<Stat> Stats { get; set; }
-    public Guid CharacterId { get; set; }
+    public int CharacterId { get; set; }
     public Character Character { get; set; }
     public Evolution Evolution { get; set; }
 

@@ -1,10 +1,12 @@
-﻿namespace InfinityBox.Domain.Entities;
+﻿namespace InfinityBox.Domain.Enums;
 
-public enum StatType
+public enum EffectStatType
 {
     None,
+    MAX_HP,
     HP,
-    MP, 
+    MAX_MP,
+    MP,
     PHY_ATK,
     MAG_ATK,
     PHY_DEF,

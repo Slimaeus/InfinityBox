@@ -14,9 +14,9 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
-    var app = builder
+    var app = await builder
         .ConfigureServices()
-        .ConfigurePipeline();
+        .ConfigurePipelineAsync();
 
     app.Run();
 }

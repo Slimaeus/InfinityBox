@@ -1,9 +1,11 @@
 ﻿using InfinityBox.Domain.Common;
+using InfinityBox.Domain.Enums;
 
 namespace InfinityBox.Domain.Entities;
 
 public class Stat : BaseEntity
 {
-    public StatType StatType { get; set; }
-    public int Value { get; set; }
+    public CharacterStatType Type { get; set; }
+
+    public ICollection<CharacterStat> CharacterStats { get; set; }
 }

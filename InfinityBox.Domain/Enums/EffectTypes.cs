@@ -1,6 +1,6 @@
 ﻿namespace InfinityBox.Domain.Enums
 {
-    public enum EffectTypes
+    public enum EffectType
     {
         None,
         PhysicalDamage,
