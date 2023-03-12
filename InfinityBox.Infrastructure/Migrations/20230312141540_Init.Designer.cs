@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfinityBox.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230312111622_Init")]
+    [Migration("20230312141540_Init")]
     partial class Init
     {
         /// <inheritdoc />

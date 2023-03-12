@@ -4,9 +4,9 @@ namespace InfinityBox.Domain.Entities;
 
 public class Character : BaseNameEntity
 {
-    public CharacterType Type { get; set; }
     public int BaseExperience { get; set; }
     public string ImageUrl { get; set; }
+    public CharacterType Type { get; set; }
 
     public ICollection<CharacterStat> CharacterStats { get; set; }
     public ICollection<Evolution> Evolutions { get; set; }

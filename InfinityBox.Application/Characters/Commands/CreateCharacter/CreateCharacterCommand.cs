@@ -1,41 +1,41 @@
-﻿using InfinityBox.Domain.Entities;
+﻿using AutoMapper;
+using EntityFrameworkCore.Repository.Interfaces;
+using EntityFrameworkCore.UnitOfWork.Interfaces;
+using InfinityBox.Domain.Entities;
 using InfinityBox.Infrastructure.Persistence;
-using InfinityBox.Infrastructure.SeedData;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace InfinityBox.Application.Characters.Commands.CreateCharacter
 {
-    public class CreateCharacterCommand : IRequest<Unit>
+    public class CreateCharacterCommand : IRequest<CharacterDTO>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseExperience { get; set; }
     }
 
-    public class CreateCharacterCommandHandler : IRequestHandler<CreateCharacterCommand, Unit>
+    public class CreateCharacterCommandHandler : IRequestHandler<CreateCharacterCommand, CharacterDTO>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Character> _characterRepository;
+        private readonly IMapper _mapper;
 
-        public CreateCharacterCommandHandler(ApplicationDbContext context)
+        public CreateCharacterCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
+            _characterRepository = unitOfWork.Repository<Character>();
+            _mapper = mapper;
         }
-        public async Task<Unit> Handle(CreateCharacterCommand request, CancellationToken cancellationToken)
+        public async Task<CharacterDTO> Handle(CreateCharacterCommand request, CancellationToken cancellationToken)
         {
-            var character = new Character
-            {
-                Id = await _context.Characters.CountAsync() + 1,
-                BaseExperience = request.BaseExperience,
-                Name = request.Name,
-                Description = request.Description,
-            };
+            var character = _mapper.Map<Character>(request);
 
-            _context.Add(character);
+            _characterRepository.Add(character);
 
-            await _context.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken: cancellationToken);
 
-            return Unit.Value;
+            return _mapper.Map<CharacterDTO>(character);
         }
     }
 }
