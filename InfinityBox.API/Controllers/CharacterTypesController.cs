@@ -9,7 +9,7 @@ namespace InfinityBox.API.Controllers
     {
         [HttpGet("{id}")]
         public async Task<CharacterTypeDTO> Get(int id)
-            => await Mediator.Send(new GetCharacterTypeQuery { Id = id });
+            => await Mediator.Send(new GetCharacterTypeQuery(id));
         [HttpPost]
         public async Task<IActionResult> Post(CreateCharacterTypeCommand request)
         {
