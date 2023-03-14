@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfinityBox.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230312141540_Init")]
+    [Migration("20230314030337_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -50,6 +50,21 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.ToTable("EffectSkill");
                 });
 
+            modelBuilder.Entity("EffectStatModifier", b =>
+                {
+                    b.Property<int>("EffectsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StatModifiersId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EffectsId", "StatModifiersId");
+
+                    b.HasIndex("StatModifiersId");
+
+                    b.ToTable("EffectStatModifier");
+                });
+
             modelBuilder.Entity("InfinityBox.Domain.Entities.Character", b =>
                 {
                     b.Property<int>("Id")
@@ -67,6 +82,9 @@ namespace InfinityBox.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Rarity")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("TypeId")
                         .HasColumnType("INTEGER");
@@ -139,24 +157,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.ToTable("Effects");
                 });
 
-            modelBuilder.Entity("InfinityBox.Domain.Entities.EffectStatModifier", b =>
-                {
-                    b.Property<int>("EffectId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StatModifierId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("EffectId", "StatModifierId");
-
-                    b.HasIndex("StatModifierId");
-
-                    b.ToTable("EffectStatModifiers");
-                });
-
             modelBuilder.Entity("InfinityBox.Domain.Entities.Evolution", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +222,9 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Rarity")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EvolutionId");
@@ -277,6 +280,9 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Property<int>("Power")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Rarity")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CharacterId");
@@ -325,6 +331,9 @@ namespace InfinityBox.Infrastructure.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<int>("StatType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Type")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -429,6 +438,21 @@ namespace InfinityBox.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EffectStatModifier", b =>
+                {
+                    b.HasOne("InfinityBox.Domain.Entities.Effect", null)
+                        .WithMany()
+                        .HasForeignKey("EffectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InfinityBox.Domain.Entities.StatModifier", null)
+                        .WithMany()
+                        .HasForeignKey("StatModifiersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("InfinityBox.Domain.Entities.Character", b =>
                 {
                     b.HasOne("InfinityBox.Domain.Entities.CharacterType", "Type")
@@ -455,25 +479,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Navigation("Character");
 
                     b.Navigation("Stat");
-                });
-
-            modelBuilder.Entity("InfinityBox.Domain.Entities.EffectStatModifier", b =>
-                {
-                    b.HasOne("InfinityBox.Domain.Entities.Effect", "Effect")
-                        .WithMany("EffectStatModifiers")
-                        .HasForeignKey("EffectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("InfinityBox.Domain.Entities.StatModifier", "StatModifier")
-                        .WithMany("EffectStatModifiers")
-                        .HasForeignKey("StatModifierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Effect");
-
-                    b.Navigation("StatModifier");
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.Evolution", b =>
@@ -551,11 +556,6 @@ namespace InfinityBox.Infrastructure.Migrations
                     b.Navigation("UserCharacters");
                 });
 
-            modelBuilder.Entity("InfinityBox.Domain.Entities.Effect", b =>
-                {
-                    b.Navigation("EffectStatModifiers");
-                });
-
             modelBuilder.Entity("InfinityBox.Domain.Entities.Evolution", b =>
                 {
                     b.Navigation("Materials");
@@ -569,11 +569,6 @@ namespace InfinityBox.Infrastructure.Migrations
             modelBuilder.Entity("InfinityBox.Domain.Entities.Stat", b =>
                 {
                     b.Navigation("CharacterStats");
-                });
-
-            modelBuilder.Entity("InfinityBox.Domain.Entities.StatModifier", b =>
-                {
-                    b.Navigation("EffectStatModifiers");
                 });
 
             modelBuilder.Entity("InfinityBox.Domain.Entities.UserCharacter", b =>

@@ -9,6 +9,7 @@ namespace InfinityBox.Domain.Entities
         public EffectStatType StatType { get; set; }
         public CalculateType CalculateType { get; set; }
         public double Rate { get; set; }
-        public ICollection<EffectStatModifier> EffectStatModifiers { get; set; }
+        public EffectStatModifierType Type { get; set; }
+        public ICollection<Effect> Effects { get; set; }
     }
 }

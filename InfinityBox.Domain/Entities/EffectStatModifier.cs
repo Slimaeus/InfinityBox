@@ -9,6 +9,5 @@ namespace InfinityBox.Domain.Entities
         public int StatModifierId { get; set; }
         public StatModifier StatModifier { get; set; }
 
-        public EffectStatModifierType Type { get; set; }
     }
 }

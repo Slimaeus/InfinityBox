@@ -4,7 +4,7 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class Skills
     {
-        public static Skill BasicAttack = new Skill
+        public static readonly Skill BasicAttack = new Skill
         {
             Id = 1,
             Name = "Basic Attack",
@@ -14,7 +14,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.PhysicalAttack }
         };
 
-        public static Skill Fireball = new Skill
+        public static readonly Skill Fireball = new Skill
         {
             Id = 2,
             Name = "Fireball",
@@ -24,7 +24,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.MagicalAttack, Effects.Burn }
         };
 
-        public static Skill Heal = new Skill
+        public static readonly Skill Heal = new Skill
         {
             Id = 3,
             Name = "Heal",
@@ -34,7 +34,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.Heal }
         };
 
-        public static Skill Stun = new Skill
+        public static readonly Skill Stun = new Skill
         {
             Id = 4,
             Name = "Stun",
@@ -44,7 +44,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.Stun }
         };
 
-        public static Skill Poison = new Skill
+        public static readonly Skill Poison = new Skill
         {
             Id = 5,
             Name = "Poison",
@@ -54,7 +54,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.Poison }
         };
 
-        public static Skill Grow = new Skill
+        public static readonly Skill Grow = new Skill
         {
             Id = 6,
             Name = "Grow",
@@ -64,7 +64,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect> { Effects.BoostHP }
         };
 
-        public static List<Skill> List => new List<Skill>()
+        public static readonly List<Skill> List = new List<Skill>()
         {
             BasicAttack,
             Fireball,

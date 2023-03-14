@@ -5,143 +5,197 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class Effects
     {
-        public static Effect PhysicalAttack = new Effect
+        public static readonly Effect PhysicalAttack = new Effect
         {
             Id = 1,
-            Type = EffectType.PhysicalDamage,
+            Type = EffectType.KineticDamage,
             Name = "Physical Attack",
             Description = "Deals physical damage to the target.",
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 1, StatModifier = StatModifiers.BasicPhysicalAttack, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 1, StatModifier = StatModifiers.BasicPhysicalDefence, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 1, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.BasicPhysicalAttack,
+                StatModifiers.BasicPhysicalDefence,
+                StatModifiers.BasicMaxHP
             },
             Duration = 0
         };
-        public static Effect MagicalAttack = new Effect
+        public static readonly Effect MagicalAttack = new Effect
         {
             Id = 2,
-            Type = EffectType.MagicalDamage,
+            Type = EffectType.EnergyDamage,
             Name = "Magical Attack",
             Description = "Deals magical damage to the target.",
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 2, StatModifier = StatModifiers.BasicMagicalAttack, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 2, StatModifier = StatModifiers.BasicMagicalDefence, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 2, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.BasicMagicalAttack,
+                StatModifiers.BasicMagicalDefence,
+                StatModifiers.BasicMaxHP
             },
             Duration = 0
         };
-        public static Effect Heal = new Effect
+        public static readonly Effect Heal = new Effect
         {
             Id = 3,
             Type = EffectType.Heal,
             Name = "Heal",
             Description = "Restores health to the target.",
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 3, StatModifier = StatModifiers.BasicMagicalAttack, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 3, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.Heal,
+                StatModifiers.BasicMaxHP
             },
             Duration = 0
         };
-        public static Effect Stun = new Effect
+        public static readonly Effect Stun = new Effect
         {
             Id = 4,
-            Type = EffectType.Stun,
+            Type = EffectType.CrowdControl,
             Name = "Stun",
             Description = "Stuns the target.",
             Duration = 2
         };
-        public static Effect Burn = new Effect
+        public static readonly Effect Burn = new Effect
         {
             Id = 5,
             Name = "Burn",
             Description = "Deals fire damage over time to the target.",
-            Type = EffectType.Burn,
-            EffectStatModifiers = new List<EffectStatModifier>
+            Type = EffectType.DamageOverTime,
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 5, StatModifier = StatModifiers.BasicMagicalOverTime, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 5, StatModifier = StatModifiers.BasicMagicalDefence, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 5, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.BasicMagicalOverTime,
+                StatModifiers.BasicMagicalDefenceOverTime,
+                StatModifiers.BasicMaxHP
             },
             Duration = 3
         };
-        public static Effect Poison = new Effect
+        public static readonly Effect Poison = new Effect
         {
             Id = 6,
             Name = "Poison",
             Description = "Deals poison damage over time to the target.",
-            Type = EffectType.Poison,
-            EffectStatModifiers = new List<EffectStatModifier>
+            Type = EffectType.DamageOverTime,
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 6, StatModifier = StatModifiers.BasicMagicalOverTime, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 6, StatModifier = StatModifiers.BasicMagicalDefence, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 6, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.BasicMagicalOverTime,
+                StatModifiers.BasicMagicalDefenceOverTime,
+                StatModifiers.BasicMaxHP
             },
             Duration = 3
         };
-        public static Effect Bleeding = new Effect
+        public static readonly Effect Bleeding = new Effect
         {
             Id = 7,
             Name = "Bleeding",
             Description = "Deals bleeding damage over time to the target.",
-            Type = EffectType.Bleeding,
-            EffectStatModifiers = new List<EffectStatModifier>
+            Type = EffectType.DamageOverTime,
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 7, StatModifier = StatModifiers.BasicMagicalOverTime, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 7, StatModifier = StatModifiers.BasicMagicalDefence, Type = EffectStatModifierType.Source },
-                new EffectStatModifier { EffectId = 7, StatModifier = StatModifiers.BasicHP, Type = EffectStatModifierType.Destination },
+                StatModifiers.BasicMagicalOverTime,
+                StatModifiers.BasicMagicalDefenceOverTime,
+                StatModifiers.BasicMaxHP
             },
             Duration = 3
         };
-        public static Effect Silent = new Effect
+        public static readonly Effect Silent = new Effect
         {
             Id = 8,
             Name = "Silent",
             Description = "Silences the target.",
-            Type = EffectType.Silent,
+            Type = EffectType.CrowdControl,
             Duration = 2
         };
-        public static Effect BoostPhysicalAttack = new Effect
+        public static readonly Effect BoostPhysicalAttack = new Effect
         {
             Id = 9,
             Name = "Boost Physical Attack",
             Description = "Temporarily increases physical attack.",
             Type = EffectType.Buff,
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 9, StatModifier = StatModifiers.DoublePhysicalAttack, Type = EffectStatModifierType.Source }
+                StatModifiers.DoublePhysicalAttack
             },
             Duration = 3
         };
-        public static Effect BoostMagicalAttack = new Effect
+        public static readonly Effect BoostMagicalAttack = new Effect
         {
             Id = 10,
             Name = "Boost Magical Attack",
             Description = "Temporarily increases magical attack.",
             Type = EffectType.Buff,
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 10, StatModifier = StatModifiers.DoubleMagicalAttack, Type = EffectStatModifierType.Source }
+                StatModifiers.DoubleMagicalAttack
             },
             Duration = 3
         };
-        public static Effect BoostHP = new Effect
+        public static readonly Effect BoostHP = new Effect
         {
             Id = 11,
             Name = "Boost HP",
             Description = "Temporarily increases HP.",
             Type = EffectType.Buff,
-            EffectStatModifiers = new List<EffectStatModifier>
+            StatModifiers = new List<StatModifier>
             {
-                new EffectStatModifier { EffectId = 11, StatModifier = StatModifiers.DoubleMaxHP, Type = EffectStatModifierType.Source }
+                StatModifiers.DoubleMaxHP
             },
             Duration = 3
         };
+        //public static readonly Effect Slow = new Effect
+        //{
+        //    Id = 1,
+        //    Type = EffectType.Debuff,
+        //    Name = "Slow",
+        //    Description = "Reduces the target's movement speed for a duration.",
+        //    StatModifiers = new List<StatModifier>
+        //    {
+        //        new StatModifier { StatType = EffectStatType.SPD, CalculateType = CalculateType.Subtract, Rate = 0.1f , Type = EffectStatModifierType.Source },
+        //        new StatModifier { StatType = EffectStatType.SPD, CalculateType = CalculateType.Add, Rate = 1f , Type = EffectStatModifierType.Destination },
+        //    },
+        //    Duration = 5
+        //};
+        //public static readonly Effect Haste = new Effect
+        //{
+        //    Id = 2,
+        //    Type = EffectType.Buff,
+        //    Name = "Haste",
+        //    Description = "Increases the target's movement speed for a duration.",
+        //    StatModifiers = new List<StatModifier>
+        //    {
+        //        new StatModifier { StatType = EffectStatType.SPD, CalculateType = CalculateType.Add, Rate = 0.1f , Type = EffectStatModifierType.Source },
+        //        new StatModifier { StatType = EffectStatType.SPD, CalculateType = CalculateType.Add, Rate = 1f , Type = EffectStatModifierType.Destination },
+        //    },
+        //    Duration = 5
+        //};
 
-        public static List<Effect> List = new List<Effect>()
+        //public static readonly Effect Confusion = new Effect
+        //{
+        //    Id = 3,
+        //    Type = EffectType.Debuff,
+        //    Name = "Confusion",
+        //    Description = "Causes the target's actions to be randomly determined for a duration.",
+        //    StatModifiers = new List<StatModifier>
+        //    {
+        //        new StatModifier { StatType = EffectStatType.ACC, CalculateType = CalculateType.Subtract, Rate = 0.1f , Type = EffectStatModifierType.Source },
+        //        new StatModifier { StatType = EffectStatType.ACC, CalculateType = CalculateType.Add, Rate = 1f , Type = EffectStatModifierType.Destination },
+        //    },
+        //    Duration = 5
+        //};
+
+        //public static readonly Effect Fear = new Effect
+        //{
+        //    Id = 4,
+        //    Type = EffectType.Debuff,
+        //    Name = "Fear",
+        //    Description = "Causes the target to flee from the source of the effect for a duration.",
+        //    StatModifiers = new List<StatModifier>
+        //    {
+        //        new StatModifier { StatType = EffectStatType.ACC, CalculateType = CalculateType.Subtract, Rate = 0.2f , Type = EffectStatModifierType.Source },
+        //        new StatModifier { StatType = EffectStatType.ACC, CalculateType = CalculateType.Add, Rate = 1f , Type = EffectStatModifierType.Destination },
+        //    },
+        //    Duration = 5
+        //};
+
+        public static readonly List<Effect> List = new List<Effect>()
         {
             PhysicalAttack,
             MagicalAttack,

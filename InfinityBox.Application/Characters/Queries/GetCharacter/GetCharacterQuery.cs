@@ -10,10 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InfinityBox.Application.Characters.Queries.GetCharacter
 {
-    public class GetCharacterQuery : IRequest<CharacterDTO>
-    {
-        public int Id { get; set; }
-    }
+    public record GetCharacterQuery(int Id) : IRequest<CharacterDTO>;
 
     public class GetCharacterQueryHandler : IRequestHandler<GetCharacterQuery, CharacterDTO>
     {

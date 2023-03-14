@@ -8,6 +8,7 @@ public class Skill : BaseNameEntity
     public int Cooldown { get; set; }
     public int Power { get; set; }
     public int Cost { get; set; }
+    public Rarity Rarity { get; set; }
 
     public ICollection<Effect> Effects { get; set; }
 }

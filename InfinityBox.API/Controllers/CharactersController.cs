@@ -19,7 +19,7 @@ namespace InfinityBox.API.Controllers
         [HttpGet("{id}")]
         public async Task<CharacterDTO> GetCharacter(int id)
         {
-            return await Mediator.Send(new GetCharacterQuery { Id = id });
+            return await Mediator.Send(new GetCharacterQuery(id));
         }
 
         [HttpPost]

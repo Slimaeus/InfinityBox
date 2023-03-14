@@ -6,5 +6,6 @@ namespace InfinityBox.Domain.Entities
     public class Item : BaseNameEntity
     {
         public ItemType ItemType { get; set; }
+        public Rarity Rarity { get; set; }
     }
 }

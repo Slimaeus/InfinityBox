@@ -4,7 +4,7 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class Characters
     {
-        public static Character SwordMan = new Character
+        public static readonly Character SwordMan = new Character
         {
             Id = 1,
             BaseExperience = 10,
@@ -15,17 +15,17 @@ namespace InfinityBox.Infrastructure.SeedData
             CharacterStats = new List<CharacterStat>
             {
                 new CharacterStat { Stat = Stats.HP, Value = 100 },
-                new CharacterStat { Stat = Stats.PHY_ATK, Value = 100 },
-                new CharacterStat { Stat = Stats.PHY_DEF, Value = 100 },
-                new CharacterStat { Stat = Stats.MAG_ATK, Value = 100 },
-                new CharacterStat { Stat = Stats.MAG_DEF, Value = 100 },
+                new CharacterStat { Stat = Stats.K_ATK, Value = 100 },
+                new CharacterStat { Stat = Stats.K_DEF, Value = 100 },
+                new CharacterStat { Stat = Stats.E_ATK, Value = 100 },
+                new CharacterStat { Stat = Stats.E_DEF, Value = 100 },
                 new CharacterStat { Stat = Stats.SPD, Value = 100 },
             },
             Skills = new List<Skill> { Skills.BasicAttack, Skills.Stun },
             Passives = new List<Passive> { Passives.DoubleMaxHP },
         };
 
-        public static List<Character> List = new List<Character>
+        public static readonly List<Character> List = new List<Character>
         {
             SwordMan
         };

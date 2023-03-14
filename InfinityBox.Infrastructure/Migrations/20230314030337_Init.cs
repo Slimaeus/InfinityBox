@@ -63,7 +63,8 @@ namespace InfinityBox.Infrastructure.Migrations
                     IsTarget = table.Column<bool>(type: "INTEGER", nullable: false),
                     StatType = table.Column<int>(type: "INTEGER", nullable: false),
                     CalculateType = table.Column<int>(type: "INTEGER", nullable: false),
-                    Rate = table.Column<double>(type: "REAL", nullable: false)
+                    Rate = table.Column<double>(type: "REAL", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -104,6 +105,7 @@ namespace InfinityBox.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     BaseExperience = table.Column<int>(type: "INTEGER", nullable: false),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Rarity = table.Column<int>(type: "INTEGER", nullable: false),
                     TypeId = table.Column<int>(type: "INTEGER", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
@@ -119,25 +121,24 @@ namespace InfinityBox.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EffectStatModifiers",
+                name: "EffectStatModifier",
                 columns: table => new
                 {
-                    EffectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StatModifierId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false)
+                    EffectsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    StatModifiersId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EffectStatModifiers", x => new { x.EffectId, x.StatModifierId });
+                    table.PrimaryKey("PK_EffectStatModifier", x => new { x.EffectsId, x.StatModifiersId });
                     table.ForeignKey(
-                        name: "FK_EffectStatModifiers_Effects_EffectId",
-                        column: x => x.EffectId,
+                        name: "FK_EffectStatModifier_Effects_EffectsId",
+                        column: x => x.EffectsId,
                         principalTable: "Effects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EffectStatModifiers_StatModifiers_StatModifierId",
-                        column: x => x.StatModifierId,
+                        name: "FK_EffectStatModifier_StatModifiers_StatModifiersId",
+                        column: x => x.StatModifiersId,
                         principalTable: "StatModifiers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -199,6 +200,7 @@ namespace InfinityBox.Infrastructure.Migrations
                     Cooldown = table.Column<int>(type: "INTEGER", nullable: false),
                     Power = table.Column<int>(type: "INTEGER", nullable: false),
                     Cost = table.Column<int>(type: "INTEGER", nullable: false),
+                    Rarity = table.Column<int>(type: "INTEGER", nullable: false),
                     CharacterId = table.Column<int>(type: "INTEGER", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
@@ -220,6 +222,7 @@ namespace InfinityBox.Infrastructure.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ItemType = table.Column<int>(type: "INTEGER", nullable: false),
+                    Rarity = table.Column<int>(type: "INTEGER", nullable: false),
                     EvolutionId = table.Column<int>(type: "INTEGER", nullable: true),
                     InventoryId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
@@ -383,9 +386,9 @@ namespace InfinityBox.Infrastructure.Migrations
                 column: "SkillsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EffectStatModifiers_StatModifierId",
-                table: "EffectStatModifiers",
-                column: "StatModifierId");
+                name: "IX_EffectStatModifier_StatModifiersId",
+                table: "EffectStatModifier",
+                column: "StatModifiersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Evolutions_CharacterId",
@@ -446,7 +449,7 @@ namespace InfinityBox.Infrastructure.Migrations
                 name: "EffectSkill");
 
             migrationBuilder.DropTable(
-                name: "EffectStatModifiers");
+                name: "EffectStatModifier");
 
             migrationBuilder.DropTable(
                 name: "Items");

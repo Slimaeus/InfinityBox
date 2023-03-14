@@ -5,99 +5,134 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class StatModifiers
     {
-        public static StatModifier BasicPhysicalAttack = new StatModifier
+        public static readonly StatModifier DoubleMaxHP = new StatModifier
         {
-            Id = 1,
-            IsTarget = false,
-            StatType = EffectStatType.PHY_ATK,
-            CalculateType = CalculateType.Subtract,
-            Rate = 1
-        };
-        public static StatModifier DoublePhysicalAttack = new StatModifier
-        {
-            Id = 2,
-            IsTarget = true,
-            StatType = EffectStatType.PHY_ATK,
-            CalculateType = CalculateType.Multiply,
-            Rate = 2
-        };
-        public static StatModifier DoubleMaxHP = new StatModifier
-        {
-            Id = 3,
             IsTarget = true,
             StatType = EffectStatType.MAX_HP,
             CalculateType = CalculateType.Multiply,
-            Rate = 1
+            Rate = 1,
+            Type = EffectStatModifierType.Destination
         };
-        public static StatModifier DoubleMagicalAttack = new StatModifier
+        public static readonly StatModifier BasicMaxHP = new StatModifier
         {
-            Id = 4,
-            IsTarget = true,
-            StatType = EffectStatType.MAG_ATK,
-            CalculateType = CalculateType.Multiply,
-            Rate = 2
-        };
-        public static StatModifier BasicMagicalAttack = new StatModifier
-        {
-            Id = 5,
-            IsTarget = false,
-            StatType = EffectStatType.MAG_ATK,
-            CalculateType = CalculateType.Subtract,
-            Rate = 1
-        };
-        public static StatModifier BasicMagicalOverTime = new StatModifier
-        {
-            Id = 6,
-            IsTarget = false,
-            StatType = EffectStatType.MAG_ATK,
-            CalculateType = CalculateType.Subtract,
-            Rate = 0.1
-        };
-        public static StatModifier BasicPhysicalDefence = new StatModifier
-        {
-            Id = 7,
-            IsTarget = true,
-            StatType = EffectStatType.MAG_DEF,
-            CalculateType = CalculateType.Add,
-            Rate = 1
-        };
-        public static StatModifier BasicMagicalDefence = new StatModifier
-        {
-            Id = 8,
-            IsTarget = true,
-            StatType = EffectStatType.MAG_DEF,
-            CalculateType = CalculateType.Add,
-            Rate = 1
-        };
-        public static StatModifier BasicMaxHP = new StatModifier
-        {
-            Id = 9,
             IsTarget = true,
             StatType = EffectStatType.MAX_HP,
             CalculateType = CalculateType.Add,
-            Rate = 1
+            Rate = 1,
+            Type = EffectStatModifierType.Destination
         };
-        public static StatModifier BasicHP = new StatModifier
+        public static readonly StatModifier BasicHP = new StatModifier
         {
-            Id = 10,
             IsTarget = true,
             StatType = EffectStatType.HP,
             CalculateType = CalculateType.Add,
-            Rate = 1
+            Rate = 1,
+            Type= EffectStatModifierType.Destination
         };
-
-        public static List<StatModifier> List = new List<StatModifier>
+        public static readonly StatModifier Heal = new StatModifier
         {
-            BasicHP,
-            BasicMagicalAttack,
-            BasicMagicalDefence,
+            IsTarget = false,
+            StatType = EffectStatType.HP,
+            CalculateType = CalculateType.Add,
+            Rate = 0.1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier DoublePhysicalAttack = new StatModifier
+        {
+            IsTarget = true,
+            StatType = EffectStatType.KEN_ATK,
+            CalculateType = CalculateType.Multiply,
+            Rate = 2,
+            Type = EffectStatModifierType.Destination
+        };
+        public static readonly StatModifier BasicPhysicalAttack = new StatModifier
+        {
+            IsTarget = false,
+            StatType = EffectStatType.KEN_ATK,
+            CalculateType = CalculateType.Subtract,
+            Rate = 1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicPhysicalDefence = new StatModifier
+        {
+            IsTarget = true,
+            StatType = EffectStatType.ENE_DEF,
+            CalculateType = CalculateType.Add,
+            Rate = 1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier DoubleMagicalAttack = new StatModifier
+        {
+            IsTarget = true,
+            StatType = EffectStatType.ENE_ATK,
+            CalculateType = CalculateType.Multiply,
+            Rate = 2,
+            Type = EffectStatModifierType.Destination
+        };
+        public static readonly StatModifier BasicMagicalAttack = new StatModifier
+        {
+            IsTarget = false,
+            StatType = EffectStatType.ENE_ATK,
+            CalculateType = CalculateType.Subtract,
+            Rate = 1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicMagicalOverTime = new StatModifier
+        {
+            IsTarget = false,
+            StatType = EffectStatType.ENE_ATK,
+            CalculateType = CalculateType.Subtract,
+            Rate = 0.1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicMagicalDefence = new StatModifier
+        {
+            IsTarget = true,
+            StatType = EffectStatType.ENE_DEF,
+            CalculateType = CalculateType.Add,
+            Rate = 1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicMagicalDefenceOverTime = new StatModifier
+        {
+            IsTarget = false,
+            StatType = EffectStatType.ENE_DEF,
+            CalculateType = CalculateType.Add,
+            Rate = 0.1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicCriticalHitChance = new StatModifier
+        {
+            IsTarget = false,
+            StatType = EffectStatType.CRT,
+            CalculateType = CalculateType.Add,
+            Rate = 0.05,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly StatModifier BasicDodgeChance = new StatModifier
+        {
+            IsTarget = true,
+            StatType = EffectStatType.EVA,
+            CalculateType = CalculateType.Add,
+            Rate = 0.1,
+            Type = EffectStatModifierType.Source
+        };
+        public static readonly List<StatModifier> List = new List<StatModifier>
+        {
+            DoubleMaxHP,
             BasicMaxHP,
+            BasicHP,
+            Heal,
+            DoublePhysicalAttack,
             BasicPhysicalAttack,
             BasicPhysicalDefence,
-            BasicMagicalOverTime,
             DoubleMagicalAttack,
-            DoublePhysicalAttack,
-            DoubleMaxHP
+            BasicMagicalAttack,
+            BasicMagicalOverTime,
+            BasicMagicalDefence,
+            BasicMagicalDefenceOverTime,
+            BasicCriticalHitChance,
+            BasicDodgeChance
         };
     }
 }

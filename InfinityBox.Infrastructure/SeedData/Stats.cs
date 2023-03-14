@@ -4,16 +4,16 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class Stats
     {
-        public static Stat HP = new Stat { Id = 1, Name = "HP", Description = "Health point", Type = Domain.Enums.CharacterStatType.MHP };
-        public static Stat PHY_ATK = new Stat { Id = 2, Name = "PHY_ATK", Description = "Physical attack point", Type = Domain.Enums.CharacterStatType.PATK };
-        public static Stat PHY_DEF = new Stat { Id = 3, Name = "PHY_DEF", Description = "Physical defence point", Type = Domain.Enums.CharacterStatType.PDEF };
-        public static Stat MAG_ATK = new Stat { Id = 4, Name = "MAG_ATK", Description = "Magical attack point", Type = Domain.Enums.CharacterStatType.MATK };
-        public static Stat MAG_DEF = new Stat { Id = 5, Name = "MAG_DEF", Description = "Magical defence point", Type = Domain.Enums.CharacterStatType.MDEF };
-        public static Stat SPD = new Stat { Id = 6, Name = "SPD", Description = "Speed point", Type = Domain.Enums.CharacterStatType.SPD };
+        public static readonly Stat HP = new Stat { Id = 1, Name = "HP", Description = "Health point", Type = Domain.Enums.CharacterStatType.MHP };
+        public static readonly Stat K_ATK = new Stat { Id = 2, Name = "KINETIC_ATK", Description = "Kinetic attack point", Type = Domain.Enums.CharacterStatType.KATK };
+        public static readonly Stat K_DEF = new Stat { Id = 3, Name = "KINETIC_DEF", Description = "Kinetic defence point", Type = Domain.Enums.CharacterStatType.KDEF };
+        public static readonly Stat E_ATK = new Stat { Id = 4, Name = "ENERGY_ATK", Description = "Energy attack point", Type = Domain.Enums.CharacterStatType.KATK };
+        public static readonly Stat E_DEF = new Stat { Id = 5, Name = "ENERGY_DEF", Description = "Energy defence point", Type = Domain.Enums.CharacterStatType.KDEF };
+        public static readonly Stat SPD = new Stat { Id = 6, Name = "SPD", Description = "Speed point", Type = Domain.Enums.CharacterStatType.SPD };
 
-        public static List<Stat> List = new List<Stat>
+        public static readonly List<Stat> List = new List<Stat>
         {
-            HP, PHY_ATK, PHY_DEF, MAG_ATK, MAG_DEF, SPD
+            HP, K_ATK, K_DEF, E_ATK, E_DEF, SPD
         };
     }
 }

@@ -4,7 +4,7 @@ namespace InfinityBox.Infrastructure.SeedData
 {
     public static class Passives
     {
-        public static Passive DoubleMaxHP = new Passive
+        public static readonly Passive DoubleMaxHP = new Passive
         {
             Id = 3,
             Name = "Increase Max HP",
@@ -12,7 +12,7 @@ namespace InfinityBox.Infrastructure.SeedData
             Effects = new List<Effect>() { Effects.BoostHP }
         };
 
-        public static List<Passive> List = new List<Passive>()
+        public static readonly List<Passive> List = new List<Passive>()
         {
             DoubleMaxHP
         };
